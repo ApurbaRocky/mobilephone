@@ -347,6 +347,18 @@
       padding: 22px;
       box-shadow: var(--shadow);
     }
+    .upcoming-media {
+      margin-bottom: 14px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #eaf2ff, #dfeafc);
+    }
+    .upcoming-media img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
     .upcoming-card h3 { margin: 0 0 8px; font-size: 20px; }
     .upcoming-card p { margin: 0 0 12px; color: var(--text-light); }
     .upcoming-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; color: var(--primary); font-weight: 800; }
@@ -389,6 +401,30 @@
     .footer-col a { display: block; margin-bottom: 10px; color: var(--text-light); font-size: 14px; }
     .footer-col a:hover { color: var(--primary); }
     .footer-bottom { display: flex; justify-content: space-between; gap: 20px; align-items: center; border-top: 1px solid var(--border); margin-top: 32px; padding-top: 18px; color: var(--text-light); font-size: 13px; flex-wrap: wrap; }
+
+    /* Small gallery for user-provided images */
+    .image-gallery { max-width: 1100px; margin: 32px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 0 28px; }
+    .image-gallery figure { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 12px; box-shadow: var(--shadow); margin: 0; text-align: center; }
+    .image-gallery img { width: 100%; height: 220px; object-fit: cover; border-radius: 12px; }
+    .image-gallery figcaption { margin-top: 8px; font-weight: 800; color: var(--text); font-size: 14px; }
+
+    @media (max-width: 900px) {
+      .image-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .image-gallery { grid-template-columns: 1fr; }
+      .image-gallery img { height: 180px; }
+    }
+
+    /* Budget filter controls */
+    .filter-row { display: flex; gap: 12px; align-items: center; margin: 18px 0 26px; }
+    .filter-row label { font-weight: 800; color: var(--text); }
+    .budget-select {
+      min-width: 220px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border);
+      background: #fff; box-shadow: var(--shadow);
+      font-weight: 700; color: var(--text);
+    }
+    .budget-result { color: var(--text-light); font-size: 14px; margin-left: 8px; }
 
     @media (max-width: 900px) {
       .hero-panel { grid-template-columns: 1fr; }
@@ -481,6 +517,29 @@
       </div>
     </section>
 
+    <section class="section" id="showcase">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Model Showcase</h2>
+          <p class="section-description">Images you requested — Xiaomi 14 Ultra, Galaxy S24 Ultra, OnePlus 12.</p>
+        </div>
+      </div>
+      <div class="image-gallery" aria-label="Requested phone images">
+        <figure>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS8pTprAbMV8xlgMlw3UielYavxlCIyx6O7QMEW-mpMQ&s" alt="Xiaomi 14 Ultra">
+          <figcaption>Xiaomi 14 Ultra</figcaption>
+        </figure>
+        <figure>
+          <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTad4gDYAfoe-ikYhW8cvpnKW-HZ-9MbgpisCnDqvmXZKlzaVpg2Wb7TQmbB0wCgGSSvozYLeTfqgV-D_nL-RX_-ZSb5Vxn8Mji2qVE9Q4&usqp=CAc" alt="Galaxy S24 Ultra">
+          <figcaption>Galaxy S24 Ultra</figcaption>
+        </figure>
+        <figure>
+          <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS6c1l4VM87ypDeA6oCVIzg1qu7LPSWPXfYXoZ-fWUVBcdzqB1-bhTRox--kfdDgUhpQrfpFBW3lE_aBPBcGWqXIwyzo40uLPwFZFx_krlHnju-IEzzdPUr" alt="OnePlus 12">
+          <figcaption>OnePlus 12</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="section" id="new-arrivals">
       <div class="section-header">
         <div>
@@ -488,6 +547,18 @@
           <p class="section-description">Latest models with Bangladesh-ready pricing and delivery included.</p>
         </div>
         <a href="#" class="section-link">View all →</a>
+      </div>
+
+      <div class="filter-row" aria-hidden="false">
+        <label for="budgetSelect">Set budget:</label>
+        <select id="budgetSelect" class="budget-select" aria-label="Select budget limit">
+          <option value="all">All prices</option>
+          <option value="under-100000">৳ ≤ 100,000</option>
+          <option value="100000-150000">৳ 100,001 – 150,000</option>
+          <option value="150000-200000">৳ 150,001 – 200,000</option>
+          <option value="over-200000">৳ > 200,000</option>
+        </select>
+        <div id="budgetResult" class="budget-result">Showing all</div>
       </div>
 
       <div class="products-grid">
@@ -661,12 +732,18 @@
       </div>
       <div class="upcoming-grid">
         <article class="upcoming-card">
+          <div class="upcoming-media">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=600&fit=crop" alt="Samsung Galaxy Z Fold7 preview">
+          </div>
           <span class="pill">Launching Soon</span>
           <h3>Samsung Galaxy Z Fold7</h3>
           <p>Expected arrival: August 2026 with foldable display and flagship camera.</p>
           <div class="upcoming-meta"><span>Estimated price</span><strong>৳ 2,95,000</strong></div>
         </article>
         <article class="upcoming-card">
+          <div class="upcoming-media">
+            <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&h=600&fit=crop" alt="iPhone 17 Air preview">
+          </div>
           <span class="pill">Pre-Order Open</span>
           <h3>iPhone 17 Air</h3>
           <p>Ultra-slim premium model with improved battery and next-gen AI features.</p>
@@ -774,6 +851,45 @@
         localStorage.setItem('phonevault-theme', dark ? 'dark' : 'light');
       });
     }
+
+    /* Budget filter logic */
+    (function() {
+      const select = document.getElementById('budgetSelect');
+      const result = document.getElementById('budgetResult');
+      const cards = Array.from(document.querySelectorAll('.products-grid .product-card'));
+
+      function parsePrice(text) {
+        if (!text) return 0;
+        const digits = text.replace(/[^0-9]/g, '');
+        return parseInt(digits || '0', 10);
+      }
+
+      function updateResults() {
+        const visible = cards.filter(c => c.style.display !== 'none').length;
+        result.textContent = `Showing ${visible} item${visible === 1 ? '' : 's'}`;
+      }
+
+      function applyFilter() {
+        const v = select.value;
+        cards.forEach(card => {
+          const priceEl = card.querySelector('.price');
+          const price = parsePrice(priceEl ? priceEl.textContent : '0');
+          let show = true;
+          if (v === 'under-100000') show = price <= 100000;
+          else if (v === '100000-150000') show = price > 100000 && price <= 150000;
+          else if (v === '150000-200000') show = price > 150000 && price <= 200000;
+          else if (v === 'over-200000') show = price > 200000;
+          card.style.display = show ? '' : 'none';
+        });
+        updateResults();
+      }
+
+      if (select) {
+        select.addEventListener('change', applyFilter);
+        // initialize
+        applyFilter();
+      }
+    })();
   </script>
 
   <footer class="footer">
