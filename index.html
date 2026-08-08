@@ -133,6 +133,52 @@
     }
     .mobile-nav a:hover { background: var(--bg-soft); color: var(--primary); }
 
+    body.dark-mode {
+      background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      color: #f8fafc;
+    }
+    body.dark-mode .page-header,
+    body.dark-mode .mobile-nav,
+    body.dark-mode .hero-panel,
+    body.dark-mode .product-card,
+    body.dark-mode .feature-card,
+    body.dark-mode .testimonial-card,
+    body.dark-mode .upcoming-card,
+    body.dark-mode .client-logo,
+    body.dark-mode .cta-card {
+      background: #111827;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+    body.dark-mode .hero,
+    body.dark-mode .features-bar {
+      background: linear-gradient(135deg, #020617 0%, #111827 100%);
+    }
+    body.dark-mode .hero-badge,
+    body.dark-mode .stat-card,
+    body.dark-mode .spec,
+    body.dark-mode .pill,
+    body.dark-mode .feature-icon {
+      background: #1e293b;
+      color: #bfdbfe;
+    }
+    body.dark-mode .btn-ghost {
+      background: #111827;
+      color: #f8fafc;
+    }
+    body.dark-mode .text-muted,
+    body.dark-mode .hero-copy,
+    body.dark-mode .section-description,
+    body.dark-mode .feature-copy,
+    body.dark-mode .footer-brand-copy,
+    body.dark-mode .footer-col a,
+    body.dark-mode .footer-bottom,
+    body.dark-mode .testimonial-card .client-role,
+    body.dark-mode .upcoming-card p,
+    body.dark-mode .client-logo {
+      color: #cbd5e1;
+    }
+
     .hero {
       padding: 72px 28px 48px; text-align: center;
       background: radial-gradient(circle at top left, rgba(15,111,255,0.12), transparent 40%), linear-gradient(135deg, #ffffff 0%, #f4f8ff 100%);
@@ -166,6 +212,66 @@
       display: flex; justify-content: space-between; align-items: center;
     }
     .stat-card strong { font-size: 20px; color: var(--primary); }
+
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .marquee-section {
+      margin: 24px auto 0;
+      max-width: 1280px;
+      padding: 0 28px;
+    }
+    .marquee-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(90deg, #ffffff, #f4f8ff);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 14px 0;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 16px;
+      animation: marquee 20s linear infinite;
+      padding: 0 12px;
+    }
+    .marquee-item {
+      min-width: 220px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 16px rgba(15,23,42,0.06);
+    }
+    .marquee-item img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .marquee-item span {
+      font-weight: 800;
+      color: var(--text);
+      font-size: 14px;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
 
     .section { padding: 0 28px; max-width: 1280px; margin: 0 auto; }
     .section-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin: 42px 0 24px; flex-wrap: wrap; }
@@ -323,6 +429,7 @@
       <a href="#support">Support</a>
     </nav>
     <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙 Night</button>
       <button class="btn btn-ghost">Call Us</button>
       <button class="btn btn-primary">Order Today</button>
       <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><span></span></button>
@@ -355,6 +462,21 @@
           <div class="stat-card"><span>Trusted by</span><strong>12k+</strong></div>
           <div class="stat-card"><span>Delivery time</span><strong>24–48 hrs</strong></div>
           <div class="stat-card"><span>Return window</span><strong>7 days</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee-section" aria-label="Phone marquee">
+      <div class="marquee-card">
+        <div class="marquee-track">
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" alt="iPhone 15"><span>iPhone 15</span></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=200&h=200&fit=crop" alt="Galaxy S24"><span>Galaxy S24</span></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=200&h=200&fit=crop" alt="Pixel 8"><span>Pixel 8</span></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1610945265078-3858a0828671?w=200&h=200&fit=crop" alt="Galaxy Ultra"><span>Galaxy Ultra</span></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1660463973-84a06313973b?w=200&h=200&fit=crop" alt="OnePlus 12"><span>OnePlus 12</span></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=200&h=200&fit=crop" alt="Xiaomi 14"><span>Xiaomi 14</span></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" alt="iPhone 15"><span>iPhone 15</span></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=200&h=200&fit=crop" alt="Galaxy S24"><span>Galaxy S24</span></div>
         </div>
       </div>
     </section>
@@ -621,6 +743,7 @@
   <script>
     const menuButton = document.querySelector('.mobile-menu-btn');
     const mobileNav = document.querySelector('.mobile-nav');
+    const themeToggle = document.getElementById('themeToggle');
 
     if (menuButton && mobileNav) {
       menuButton.addEventListener('click', () => {
@@ -634,6 +757,21 @@
           mobileNav.classList.remove('is-open');
           menuButton.setAttribute('aria-expanded', 'false');
         });
+      });
+    }
+
+    if (themeToggle) {
+      const savedTheme = localStorage.getItem('phonevault-theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.textContent = '☀️ Day';
+      }
+
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const dark = document.body.classList.contains('dark-mode');
+        themeToggle.textContent = dark ? '☀️ Day' : '🌙 Night';
+        localStorage.setItem('phonevault-theme', dark ? 'dark' : 'light');
       });
     }
   </script>
