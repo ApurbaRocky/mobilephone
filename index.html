@@ -426,6 +426,16 @@
     }
     .budget-result { color: var(--text-light); font-size: 14px; margin-left: 8px; }
 
+    /* Adjust dropdown colors for dark mode */
+    body.dark-mode .budget-select {
+      background: #0b1220;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      box-shadow: none;
+    }
+    body.dark-mode .filter-row label { color: #cbd5e1; }
+    body.dark-mode .budget-result { color: #94a3b8; }
+
     @media (max-width: 900px) {
       .hero-panel { grid-template-columns: 1fr; }
       .cta-card { flex-direction: column; align-items: flex-start; }
