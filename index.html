@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhoneVault — Premium Phones Delivered Free</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #ffffff;
+      --bg-soft: #f9fafb;
+      --border: #e5e7eb;
+      --success: #10b981;
+      --success-soft: #dcfce7;
+      --shadow: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-elevated: 0 10px 25px -5px rgba(0,0,0,0.1);
+      --radius-card: 16px;
+      --radius-small: 12px;
+      --radius-button: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-soft);
+      color: var(--text);
+      line-height: 1.6;
+      font-family: inherit;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(229,231,235,0.8);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius-button);
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 20px;
+      font-weight: 700;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.92);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(37,99,235,0.2);
+    }
+
+    .hero {
+      padding: 80px 28px 56px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #dbeafe;
+      color: var(--primary);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .hero-headline {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+      margin: 0 auto 20px;
+    }
+
+    .hero-headline strong {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      max-width: 600px;
+      margin: 0 auto 32px;
+      color: var(--text-light);
+      font-size: 20px;
+    }
+
+    .hero-actions {
+      display: inline-flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions .btn {
+      min-width: 180px;
+    }
+
+    .trust-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 12px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-small);
+      padding: 16px 18px;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .trust-item span {
+      color: var(--success);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .section {
+      padding: 0 28px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .section-description {
+      margin: 8px 0 0;
+      color: var(--text-light);
+    }
+
+    .section-link {
+      color: var(--primary);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-elevated);
+      border-color: transparent;
+    }
+
+    .product-media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
+      overflow: hidden;
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-media img {
+      transform: scale(1.05);
+    }
+
+    .badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+
+    .badge.best {
+      background: rgba(17,24,39,0.8);
+    }
+
+    .badge.new {
+      background: rgba(17,24,39,0.8);
+    }
+
+    .badge.hot {
+      background: #ef4444;
+    }
+
+    .favorite-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      border: none;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .favorite-btn:hover {
+      transform: scale(1.1);
+      background: #fff;
+    }
+
+    .product-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .product-brand {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .product-name {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .spec {
+      background: var(--bg-soft);
+      color: var(--text-light);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .price-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .price {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .delivery-note {
+      margin: 0;
+      color: var(--success);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .cart-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: none;
+      background: var(--bg-soft);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      font-size: 18px;
+    }
+
+    .cart-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .features-bar {
+      background: var(--bg-soft);
+      padding: 80px 24px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: #dbeafe;
+      color: var(--primary);
+      font-size: 24px;
+      margin: 0 auto 20px;
+    }
+
+    .feature-title {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .feature-copy {
+      margin: 0;
+      color: var(--text-light);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .cta-banner {
+      max-width: 1280px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      border-radius: 16px;
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: #fff;
+    }
+
+    .cta-copy {
+      max-width: 680px;
+    }
+
+    .cta-copy h2 {
+      margin: 0 0 16px;
+      font-size: 32px;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .cta-copy p {
+      margin: 0;
+      color: #9ca3af;
+      font-size: 16px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+      margin-top: 80px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .footer-brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand-copy {
+      margin: 0;
+      color: var(--text-light);
+      font-size: 14px;
+      line-height: 1.75;
+      max-width: 420px;
+    }
+
+    .footer-col h3 {
+      margin: 0 0 20px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-col a {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--text-light);
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      padding-top: 24px;
+      color: var(--text-light);
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1024px) {
+      .page-header {
+        padding: 0 20px;
+      }
+
+      .hero {
+        padding-top: 64px;
+      }
+
+      .cta-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-headline {
+        font-size: 36px;
+      }
+
+      .trust-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section {
+        padding: 0 18px;
+      }
+
+      .features-bar {
+        padding: 60px 18px;
+      }
+
+      .cta-card {
+        padding: 40px 24px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .cta-copy h2 {
+        font-size: 28px;
+      }
+
+      .cta-banner {
+        margin: 40px auto;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="brand">
+      <div class="brand-mark">📱</div>
+      <div class="brand-title">PhoneVault</div>
+    </div>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#new-arrivals" class="active">New Arrivals</a>
+      <a href="#best-sellers">Best Sellers</a>
+      <a href="#brands">Brands</a>
+      <a href="#accessories">Accessories</a>
+      <a href="#support">Support</a>
+    </nav>
+    <div class="header-actions">
+      <button class="btn btn-ghost">Sign In</button>
+      <button class="btn btn-primary">Shop Now</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-badge">🚚 Free Delivery on Every Order</div>
+      <h1 class="hero-headline">Your Next Phone, <strong>Delivered Free.</strong></h1>
+      <p class="hero-copy">Discover premium smartphones with prices that include delivery, no hidden fees, and fast shipping built into every purchase.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary">Browse Phones</button>
+        <button class="btn btn-ghost">Compare Models</button>
+      </div>
+      <div class="trust-bar">
+        <div class="trust-item"><span>✓</span>Free Express Delivery</div>
+        <div class="trust-item"><span>✓</span>2-Year Warranty</div>
+        <div class="trust-item"><span>✓</span>30-Day Returns</div>
+        <div class="trust-item"><span>✓</span>Authentic Products Only</div>
+      </div>
+    </section>
+
+    <section class="section" id="new-arrivals">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">New Arrivals</h2>
+          <p class="section-description">Latest flagship phones with free shipping</p>
+        </div>
+        <a href="#" class="section-link">View all →</a>
+      </div>
+
+      <div class="products-grid">
+        <article class="product-card">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1696446701796-da61225697cc?w=600&h=450&fit=crop" alt="iPhone 15 Pro Max">
+            <div class="badge hot">Best Seller</div>
+            <button class="favorite-btn" aria-label="Add iPhone 15 Pro Max to favorites">♡</button>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">Apple</div>
+            <h3 class="product-name">iPhone 15 Pro Max</h3>
+            <div class="specs">
+              <span class="spec">256GB</span>
+              <span class="spec">Titanium</span>
+              <span class="spec">5G</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-group">
+                <p class="price">$1,199</p>
+                <p class="delivery-note">Delivery included</p>
+              </div>
+              <button class="cart-btn" aria-label="Add iPhone 15 Pro Max to cart">🛒</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1610945265078-3858a0828671?w=600&h=450&fit=crop" alt="Galaxy S24 Ultra">
+            <div class="badge new">New</div>
+            <button class="favorite-btn" aria-label="Add Galaxy S24 Ultra to favorites">♡</button>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">Samsung</div>
+            <h3 class="product-name">Galaxy S24 Ultra</h3>
+            <div class="specs">
+              <span class="spec">512GB</span>
+              <span class="spec">AI Camera</span>
+              <span class="spec">S Pen</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-group">
+                <p class="price">$1,299</p>
+                <p class="delivery-note">Delivery included</p>
+              </div>
+              <button class="cart-btn" aria-label="Add Galaxy S24 Ultra to cart">🛒</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&h=450&fit=crop" alt="Pixel 8 Pro">
+            <button class="favorite-btn" aria-label="Add Pixel 8 Pro to favorites">♡</button>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">Google</div>
+            <h3 class="product-name">Pixel 8 Pro</h3>
+            <div class="specs">
+              <span class="spec">128GB</span>
+              <span class="spec">Tensor G3</span>
+              <span class="spec">Night Sight</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-group">
+                <p class="price">$999</p>
+                <p class="delivery-note">Delivery included</p>
+              </div>
+              <button class="cart-btn" aria-label="Add Pixel 8 Pro to cart">🛒</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1660463973-84a06313973b?w=600&h=450&fit=crop" alt="OnePlus 12">
+            <div class="badge hot">-15%</div>
+            <button class="favorite-btn" aria-label="Add OnePlus 12 to favorites">♡</button>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">OnePlus</div>
+            <h3 class="product-name">OnePlus 12</h3>
+            <div class="specs">
+              <span class="spec">256GB</span>
+              <span class="spec">100W Charge</span>
+              <span class="spec">Hasselblad</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-group">
+                <p class="price">$799</p>
+                <p class="delivery-note">Delivery included</p>
+              </div>
+              <button class="cart-btn" aria-label="Add OnePlus 12 to cart">🛒</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&h=450&fit=crop" alt="iPhone 15">
+            <button class="favorite-btn" aria-label="Add iPhone 15 to favorites">♡</button>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">Apple</div>
+            <h3 class="product-name">iPhone 15</h3>
+            <div class="specs">
+              <span class="spec">128GB</span>
+              <span class="spec">Dynamic Island</span>
+              <span class="spec">USB-C</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-group">
+                <p class="price">$799</p>
+                <p class="delivery-note">Delivery included</p>
+              </div>
+              <button class="cart-btn" aria-label="Add iPhone 15 to cart">🛒</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=600&h=450&fit=crop" alt="Xiaomi 14 Ultra">
+            <div class="badge new">New</div>
+            <button class="favorite-btn" aria-label="Add Xiaomi 14 Ultra to favorites">♡</button>
+          </div>
+          <div class="product-body">
+            <div class="product-brand">Xiaomi</div>
+            <h3 class="product-name">Xiaomi 14 Ultra</h3>
+            <div class="specs">
+              <span class="spec">512GB</span>
+              <span class="spec">Leica Lens</span>
+              <span class="spec">120Hz</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-group">
+                <p class="price">$1,099</p>
+                <p class="delivery-note">Delivery included</p>
+              </div>
+              <button class="cart-btn" aria-label="Add Xiaomi 14 Ultra to cart">🛒</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="features-bar">
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon">🚚</div>
+          <h3 class="feature-title">Free Delivery</h3>
+          <p class="feature-copy">Every phone ships free with no hidden delivery charges. Express shipping available on all orders.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 class="feature-title">2-Year Warranty</h3>
+          <p class="feature-copy">Full manufacturer warranty plus our extended protection plan on every device.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">↩️</div>
+          <h3 class="feature-title">30-Day Returns</h3>
+          <p class="feature-copy">Not satisfied? Return within 30 days for a full refund. No questions asked.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3 class="feature-title">Secure Payment</h3>
+          <p class="feature-copy">Encrypted checkout with support for cards, PayPal, Apple Pay, and buy-now-pay-later.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="cta-card">
+        <div class="cta-copy">
+          <h2>Trade in your old phone</h2>
+          <p>Get a better value on your next upgrade with an easy trade-in estimate and fast credit toward a new device.</p>
+        </div>
+        <button class="btn btn-primary">Get Estimate</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-title">
+          <div class="brand-mark">📱</div>
+          <span>PhoneVault</span>
+        </div>
+        <p class="footer-brand-copy">Premium mobile phones with transparent pricing. Delivery is always included — what you see is what you pay.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Shop</h3>
+        <a href="#new-arrivals">New Arrivals</a>
+        <a href="#best-sellers">Best Sellers</a>
+        <a href="#">iPhones</a>
+        <a href="#">Samsung</a>
+        <a href="#">Accessories</a>
+      </div>
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="#">Order Status</a>
+        <a href="#">Returns</a>
+        <a href="#">Warranty</a>
+        <a href="#">Trade-In</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PhoneVault. All rights reserved.</span>
+      <span>Delivery included on all orders.</span>
+    </div>
+  </footer>
+</body>
+</html>
